@@ -1,13 +1,189 @@
-/* CSS Variables for Theme Management */
+/* --- Light Themed, Minimalistic Tic Tac Toe Styles --- */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Provided palette and theme vars */
+  --primary: #1976d2;
+  --accent: #ffeb3b;
+  --secondary: #757575;
+  --ttt-bg: #f7faff;
+  --ttt-board-bg: #fff;
+  --ttt-border: #e4e8ee;
+  --ttt-score-bg: #eef3fb;
+  --ttt-btn-bg: var(--primary);
+  --ttt-btn-color: #fff;
+  --ttt-btn-hover-bg: #125fa4;
+  --ttt-square-hover: #f1f8fe;
+}
+
+/* Reset some inherited background if dark mode applied */
+[data-theme='dark'] {
+  --ttt-bg: #181a1b;
+  --ttt-board-bg: #23262b;
+  --ttt-score-bg: #313338;
+  --ttt-border: #222;
+  --ttt-btn-bg: #383d41;
+  --ttt-btn-color: #ededed;
+  --ttt-btn-hover-bg: #50555a;
+  --ttt-square-hover: #222733;
+}
+
+body, html {
+  background: var(--ttt-bg);
+}
+
+.ttt-app-bg {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: var(--ttt-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ttt-container {
+  margin: 48px 0;
+  padding: 32px 22px 28px 22px;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(25, 118, 210, 0.09);
+  background: var(--ttt-board-bg);
+  max-width: 400px;
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ttt-title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.ttt-scoreboard {
+  background: var(--ttt-score-bg);
+  border-radius: 8px;
+  padding: 10px 30px 7px 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.04);
+}
+
+.ttt-score-label {
+  font-size: 1.15em;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.ttt-score-number {
+  font-size: 1.12em;
+  color: var(--secondary);
+}
+
+.ttt-message {
+  margin: 20px 0 12px 0;
+  font-size: 1.08em;
+  letter-spacing: 0.5px;
+  min-height: 26px;
+  color: var(--primary);
+  text-align: center;
+  font-weight: 500;
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 2px;
+  background: var(--ttt-board-bg);
+  border-radius: 11px;
+  box-shadow: 0 2px 10px 0 rgba(25,118,210,0.04);
+  margin: 10px 0 18px 0;
+}
+
+.ttt-board-row {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 2px;
+}
+
+.ttt-square {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--ttt-border);
+  background: #fff;
+  font-size: 2.15em;
+  font-weight: 600;
+  color: var(--secondary);
+  border-radius: 6px;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s, border 0.2s, color 0.2s;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ttt-square:not(:disabled):hover {
+  background: var(--ttt-square-hover);
+  border-color: var(--primary);
+}
+
+.ttt-square[style*="background"] {
+  /* highlighted winning squares override hover */
+  background: var(--accent) !important;
+  color: var(--primary) !important;
+}
+
+.ttt-square:disabled {
+  background: #f5f5f7;
+  opacity: 0.82;
+  cursor: not-allowed;
+}
+
+.ttt-controls {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+.ttt-btn {
+  border: none;
+  border-radius: 7px;
+  background: var(--ttt-btn-bg);
+  color: var(--ttt-btn-color);
+  padding: 8px 22px;
+  font-size: 1.07em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .16s, color .22s, box-shadow .22s;
+  box-shadow: 0 2px 12px 0 rgba(25, 118, 210, 0.10);
+}
+
+.ttt-btn:focus, .ttt-btn:hover {
+  background: var(--ttt-btn-hover-bg);
+  color: #fff;
+  outline: none;
+}
+
+.ttt-btn:active {
+  background: var(--primary);
+}
+
+@media (max-width: 576px) {
+  .ttt-container { padding: 8vw 3vw 9vw 3vw; }
+  .ttt-board-row { grid-template-columns: repeat(3, 16vw); }
+  .ttt-square { width: 16vw; height: 16vw; }
+  .ttt-title { font-size: 1.3rem; }
+  .ttt-scoreboard { font-size: 1rem; padding: 6px 14px 4px 14px; }
 }
 
 [data-theme="dark"] {
